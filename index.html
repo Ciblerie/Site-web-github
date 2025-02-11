@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Classement des Scores</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #best-score { font-size: 24px; font-weight: bold; color: red; margin-bottom: 20px; }
+        ul { list-style: none; padding: 0; }
+        li { font-size: 18px; margin: 5px 0; }
+    </style>
+    <script>
+        function chargerScores() {
+            fetch("obtenir_scores.php")
+                .then(response => response.json())
+                .then(data => {
+                    let list = document.getElementById("score-list");
+                    list.innerHTML = "";
+                    if (data.length > 0) {
+                        document.getElementById("best-score").innerText = "Meilleur Score: " + data[0];
+                    }
+                    data.forEach(score => {
+                        let li = document.createElement("li");
+                        li.textContent = score;
+                        list.appendChild(li);
+                    });
+                })
+                .catch(error => console.error("Erreur lors du chargement des scores :", error));
+        }
+        setInterval(chargerScores, 5000); // Rafraîchir toutes les 5 secondes
+        window.onload = chargerScores;
+    </script>
+</head>
+<body>
+    <h1>Classement des Scores</h1>
+    <div id="best-score">Chargement...</div>
+    <ul id="score-list"></ul>
+</body>
+</html>
