@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrôle LED</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #status {
+            font-size: 20px;
+            margin-top: 20px;
+            padding: 10px;
+            display: inline-block;
+            border-radius: 5px;
+            background-color: lightgray;
+        }
+        .on {
+            background-color: green;
+            color: white;
+        }
+        .off {
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contrôler la LED</h1>
+    <button onclick="toggleLED(true)">Allumer</button>
+    <button onclick="toggleLED(false)">Éteindre</button>
+    <p id="status">Statut : Inconnu</p>
+
+    <script>
+        const esp32Ip = "http://192.168.1.100"; // Remplacez par l'IP de votre ESP32
+        const statusElement = document.getElementById("status");
+
+        function toggleLED(state) {
+            let url = esp32Ip + (state ? "/led/on" : "/led/off");
+
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    updateStatus(state);
+                })
+                .catch(error => {
+                    console.error("Erreur:", error);
+                    statusElement.textContent = "Erreur de connexion";
+                    statusElement.className = "";
+                });
+        }
+
+        function updateStatus(isOn) {
+            if (isOn) {
+                statusElement.textContent = "Statut : Allumée 🔆";
+                statusElement.className = "on";
+            } else {
+                statusElement.textContent = "Statut : Éteinte 💡";
+                statusElement.className = "off";
+            }
+        }
+    </script>
+</body>
+</html>
