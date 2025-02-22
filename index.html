@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Config WiFi</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        input { padding: 10px; margin: 10px; width: 80%; }
+        button { padding: 10px 20px; }
+    </style>
+</head>
+<body>
+    <h2>Configuration WiFi</h2>
+    <form action="/save" method="POST">
+        <label>SSID:</label><br>
+        <input type="text" name="ssid" value="%SSID%"><br>
+        <label>Mot de passe:</label><br>
+        <input type="password" name="password" value="%PASSWORD%"><br>
+        <button type="submit">Enregistrer</button>
+    </form>
+</body>
+</html>
