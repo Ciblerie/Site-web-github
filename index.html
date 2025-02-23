@@ -10,7 +10,7 @@
 
     <script>
         function sendRequest(action) {
-            fetch(`http://VOTRE_ADRESSE_IP_ESP32/${action}`)
+            fetch(`http://192.168.1.29/${action}`)
                 .then(response => response.text())
                 .then(data => console.log(data))
                 .catch(error => console.error("Erreur:", error));
