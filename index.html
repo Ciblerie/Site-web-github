@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contrôle LED</title>
+</head>
+<body>
+    <h1>Contrôle LED via ESP32</h1>
+    <button onclick="sendRequest('on')">Allumer</button>
+    <button onclick="sendRequest('off')">Éteindre</button>
+
+    <script>
+        function sendRequest(action) {
+            fetch(`http://192.168.1.29/${action}`)
+                .then(response => response.text())
+                .then(data => console.log(data))
+                .catch(error => console.error("Erreur:", error));
+        }
+    </script>
+</body>
+</html>
