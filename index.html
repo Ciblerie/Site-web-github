@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrôle LED</title>
+</head>
+<body>
+    <h1>Contrôle LED</h1>
+    <button onclick="toggleLED(true)">Allumer</button>
+    <button onclick="toggleLED(false)">Éteindre</button>
+
+    <script>
+        const esp32IP = "http://192.168.1.29";
+
+        function toggleLED(state) {
+            let url = state ? esp32IP + "/on" : esp32IP + "/off";
+            fetch(url)
+                .then(response => console.log("Commande envoyée :", response))
+                .catch(error => console.error("Erreur :", error));
+        }
+    </script>
+</body>
+</html>
